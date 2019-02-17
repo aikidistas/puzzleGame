@@ -1,14 +1,13 @@
 package org.aikidistas.puzzle.userinteraction;
 
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
 
-public class InOutHandler {
+public class InputHandler {
     private Scanner scanner;
-    private PrintWriter output;
+    private OutputHandler output;
 
-    public InOutHandler(Scanner input, PrintWriter output) {
+    public InputHandler(Scanner input, OutputHandler output) {
         this.scanner = input;
         this.output = output;
     }
@@ -29,16 +28,15 @@ public class InOutHandler {
         return message + " (" + answersToText(availableAnswers) + ")";
     }
 
+    // TODO: split available answers to aanswers model and formatter (in other class) Will be easier to test answers
     private String answersToText(List<String> availableAnswers) {
         return String.join(", ", availableAnswers);
     }
 
     private String getInput(String message) {
-        output.println(message);
+        output.displayMessage(message);
         return scanner.nextLine();
     }
 
-    public void displayMessageToUser(String message) {
-        output.println(message);
-    }
+
 }

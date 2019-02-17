@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class InOutHandlerTest {
+class InputHandlerTest {
 
 
     @Test
@@ -21,13 +21,13 @@ class InOutHandlerTest {
         // GIVEN
         StringWriter output = new StringWriter();
         String input = "\n";
-        InOutHandler InOutHandler = new InOutHandler(new Scanner(input), new PrintWriter(output));
+        InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
         String questionText = "Please click enter keyboard button...";
         String expectedAnswer = "";
         List<String> availableAnswers = Collections.singletonList(expectedAnswer);
 
         // WHEN
-        String result = InOutHandler.getUserChoice(questionText, availableAnswers);
+        String result = inputHandler.getUserChoice(questionText, availableAnswers);
 
         // THEN
         assertEquals(expectedAnswer, result);
@@ -38,13 +38,13 @@ class InOutHandlerTest {
         // GIVEN
         StringWriter output = new StringWriter();
         String input = "\n";
-        InOutHandler InOutHandler = new InOutHandler(new Scanner(input), new PrintWriter(output));
+        InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
         String questionText = "Please click enter keyboard button...";
         String expectedAnswer = "";
         List<String> availableAnswers = Collections.singletonList(expectedAnswer);
 
         // WHEN
-        InOutHandler.getUserChoice(questionText, availableAnswers);
+        inputHandler.getUserChoice(questionText, availableAnswers);
 
         // THEN
         assertThat(output.toString(), containsString(questionText));
@@ -56,31 +56,15 @@ class InOutHandlerTest {
         StringWriter output = new StringWriter();
         String input = "WRONG_ANSWER\n"
                 + "B\n";
-        InOutHandler InOutHandler = new InOutHandler(new Scanner(input), new PrintWriter(output));
+        InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
         String questionText = "This is a question...";
         List<String> availableAnswers = Arrays.asList("B", "C");
 
         // WHEN
-        InOutHandler.getUserChoice(questionText, availableAnswers);
+        inputHandler.getUserChoice(questionText, availableAnswers);
 
         // THEN
         String expectedAnswersText = "(B, C)";
         assertThat(output.toString(), containsString(expectedAnswersText));
-    }
-
-    @Test
-    void displayMessageToUser() {
-        // GIVEN
-        StringWriter output = new StringWriter();
-        String input = "";
-        InOutHandler InOutHandler = new InOutHandler(new Scanner(input), new PrintWriter(output));
-        String expectedDisplayedText = "Some message to the user...";
-
-        // WHEN
-        InOutHandler.displayMessageToUser(expectedDisplayedText);
-
-        // THEN
-        assertThat(output.toString(), containsString(expectedDisplayedText));
-
     }
 }
