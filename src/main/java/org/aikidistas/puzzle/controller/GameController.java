@@ -16,7 +16,9 @@ public class GameController {
     }
 
     public void start() {
+        view.render(model);
 
+        // TODO: think about this Idea: return action to the top, and it will choose another controller action
     }
 
 }

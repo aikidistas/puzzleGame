@@ -18,10 +18,10 @@ public class ApplicationRunner {
     }
 
     private static GameController initializeGameController() {
-        GameBoard model = new GameBoard();
         OutputHandler outputHandler = new OutputHandler(new PrintWriter(System.out, true));
-        GameView view = new GameView(model, outputHandler);
         InputHandler inputHandler = new InputHandler(new Scanner(System.in), outputHandler);
+        GameBoard model = new GameBoard();
+        GameView view = new GameView(outputHandler);
         return new GameController(model, view, inputHandler);
     }
 }
