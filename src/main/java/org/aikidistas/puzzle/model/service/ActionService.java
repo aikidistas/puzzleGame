@@ -8,6 +8,7 @@ import org.aikidistas.puzzle.model.exception.CellDoesNotExistException;
 import static org.aikidistas.puzzle.model.GameBoard.BORDER_SIZE;
 
 @Log4j2
+@SuppressWarnings("squid:S1610")
 public abstract class ActionService {
     public abstract GameBoard applyTo(GameBoard gameBoard);
 
@@ -45,12 +46,11 @@ public abstract class ActionService {
         return gameBoard.getBoard()[x][y];
     }
 
-    void checkValidCoordinates(int x, int y) throws CellDoesNotExistException {
+    private void checkValidCoordinates(int x, int y) throws CellDoesNotExistException {
         if ((x < 0) || (x >= BORDER_SIZE) || (y < 0) || (y >= BORDER_SIZE)) {
             throw new CellDoesNotExistException();
         }
     }
-
 
     void switchCells(Cell cell1, Cell cell2) {
         int value = cell1.getValue();
