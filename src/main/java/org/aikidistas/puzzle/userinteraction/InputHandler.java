@@ -28,7 +28,7 @@ public class InputHandler {
         return message + " (" + answersToText(availableAnswers) + ")";
     }
 
-    // TODO: split available answers to aanswers model and formatter (in other class) Will be easier to test answers
+    // TODO: split available answers to answers model and formatter (in other class) Will be easier to test answers
     private String answersToText(List<String> availableAnswers) {
         return String.join(", ", availableAnswers);
     }

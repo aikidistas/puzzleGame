@@ -11,11 +11,6 @@ import static org.hamcrest.Matchers.containsString;
 class OutputHandlerTest {
 
     @Test
-    void displayMessage() {
-    }
-
-
-    @Test
     void displayMessageToUser() {
         // GIVEN
         StringWriter output = new StringWriter();
