@@ -11,8 +11,7 @@ import static org.aikidistas.puzzle.model.GameBoard.BORDER_SIZE;
 public abstract class ActionService {
     public abstract GameBoard applyTo(GameBoard gameBoard);
 
-
-    protected Cell getCellUpFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
+    Cell getCellUpFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
         int x = cell.getCoordinateXInBoard() - 1;
         int y = cell.getCoordinateYInBoard();
 
@@ -20,7 +19,7 @@ public abstract class ActionService {
         return gameBoard.getBoard()[x][y];
     }
 
-    protected Cell getCellDownFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
+    Cell getCellDownFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
         int x = cell.getCoordinateXInBoard() + 1;
         int y = cell.getCoordinateYInBoard();
 
@@ -28,7 +27,7 @@ public abstract class ActionService {
         return gameBoard.getBoard()[x][y];
     }
 
-    protected Cell getCellLeftFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
+    Cell getCellLeftFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
         int x = cell.getCoordinateXInBoard();
         int y = cell.getCoordinateYInBoard() - 1;
 
@@ -37,7 +36,7 @@ public abstract class ActionService {
         return gameBoard.getBoard()[x][y];
     }
 
-    protected Cell getCellRightFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
+    Cell getCellRightFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
         int x = cell.getCoordinateXInBoard();
         int y = cell.getCoordinateYInBoard() + 1;
 
@@ -46,20 +45,20 @@ public abstract class ActionService {
         return gameBoard.getBoard()[x][y];
     }
 
-    protected void checkValidCoordinates(int x, int y) throws CellDoesNotExistException {
+    void checkValidCoordinates(int x, int y) throws CellDoesNotExistException {
         if ((x < 0) || (x >= BORDER_SIZE) || (y < 0) || (y >= BORDER_SIZE)) {
             throw new CellDoesNotExistException();
         }
     }
 
 
-    protected void switchCells(Cell cell1, Cell cell2) {
+    void switchCells(Cell cell1, Cell cell2) {
         int value = cell1.getValue();
         cell1.setValue(cell2.getValue());
         cell2.setValue(value);
     }
 
-    protected Cell getEmptyCell(GameBoard gameBoard) {
+    Cell getEmptyCell(GameBoard gameBoard) {
         for (Cell[] row : gameBoard.getBoard()) {
             for (Cell cell : row) {
                 if (cell.isEmpty()) {
