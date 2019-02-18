@@ -8,10 +8,10 @@ import org.aikidistas.puzzle.view.GameView;
 
 public class GameController {
     private static final String CHOOSE_ACTION_TEXT = "Choose action:";
-    private GameBoard gameBoard;
     private GameView view;
     private InputHandler inputHandler;
     private GameBoardService gameBoardService;
+    private GameBoard gameBoard;
 
     public GameController(GameView view, InputHandler inputHandler, GameBoardService gameBoardService) {
         this.view = view;

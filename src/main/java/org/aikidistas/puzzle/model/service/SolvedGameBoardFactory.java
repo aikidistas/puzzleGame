@@ -3,6 +3,8 @@ package org.aikidistas.puzzle.model.service;
 import org.aikidistas.puzzle.model.Cell;
 import org.aikidistas.puzzle.model.GameBoard;
 
+import static org.aikidistas.puzzle.model.GameBoard.BORDER_SIZE;
+
 public class SolvedGameBoardFactory {
 
     private Cell[][] board;
@@ -22,18 +24,18 @@ public class SolvedGameBoardFactory {
     }
 
     private void cleanBoard() {
-        board = new Cell[GameBoard.BORDER_SIZE][GameBoard.BORDER_SIZE];
+        board = new Cell[BORDER_SIZE][BORDER_SIZE];
         numberOfInitializedCells = 0;
     }
 
     private void createSeriallyNumberedCellsInBoard() {
-        for (int rowNumber = 0; rowNumber < GameBoard.BORDER_SIZE; rowNumber++) {
+        for (int rowNumber = 0; rowNumber < BORDER_SIZE; rowNumber++) {
             initializeNumberedBoardRow(rowNumber);
         }
     }
 
     private void initializeNumberedBoardRow(int rowNumber) {
-        for (int columnNumber = 0; columnNumber < GameBoard.BORDER_SIZE; columnNumber++) {
+        for (int columnNumber = 0; columnNumber < BORDER_SIZE; columnNumber++) {
             initializeCell(rowNumber, columnNumber);
         }
     }
@@ -44,6 +46,6 @@ public class SolvedGameBoardFactory {
     }
 
     private void makeLastCellEmpty() {
-        board[GameBoard.BORDER_SIZE - 1][GameBoard.BORDER_SIZE - 1].setValue(Cell.EMPTY_VALUE);
+        board[BORDER_SIZE - 1][BORDER_SIZE - 1].setValue(Cell.EMPTY_VALUE);
     }
 }

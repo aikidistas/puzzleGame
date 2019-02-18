@@ -1,10 +1,12 @@
 package org.aikidistas.puzzle.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Cell {
     public static final int EMPTY_VALUE = 0;
     private final int x;

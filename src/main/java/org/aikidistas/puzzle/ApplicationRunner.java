@@ -19,12 +19,13 @@ public class ApplicationRunner {
         controller.start();
     }
 
-    @java.lang.SuppressWarnings("squid:S106")
+    @SuppressWarnings("squid:S106")
     private static GameController initializeGameController() {
         OutputHandler outputHandler = new OutputHandler(new PrintWriter(System.out, true));
-        InputHandler inputHandler = new InputHandler(new Scanner(System.in), outputHandler);
-        GameView view = new GameView(outputHandler);
-        GameBoardService gameBoardService = new GameBoardService(new GameBoardShufflerService(), new SolvedGameBoardFactory());
-        return new GameController(view, inputHandler, gameBoardService);
+        return new GameController(
+                new GameView(outputHandler),
+                new InputHandler(new Scanner(System.in), outputHandler),
+                new GameBoardService(new GameBoardShufflerService(), new SolvedGameBoardFactory())
+        );
     }
 }
