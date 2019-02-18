@@ -78,24 +78,24 @@ public enum Action {
     public abstract GameBoard applyTo(GameBoard gameBoard);
 
     protected Cell getCellUpFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getX() - 1;
-        int y = cell.getY();
+        int x = cell.getCoordinateXInBoard() - 1;
+        int y = cell.getCoordinateYInBoard();
 
         checkValidCoordinates(x, y);
         return gameBoard.getBoard()[x][y];
     }
 
     protected Cell getCellDownFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getX() + 1;
-        int y = cell.getY();
+        int x = cell.getCoordinateXInBoard() + 1;
+        int y = cell.getCoordinateYInBoard();
 
         checkValidCoordinates(x, y);
         return gameBoard.getBoard()[x][y];
     }
 
     protected Cell getCellLeftFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getX();
-        int y = cell.getY() - 1;
+        int x = cell.getCoordinateXInBoard();
+        int y = cell.getCoordinateYInBoard() - 1;
 
         checkValidCoordinates(x, y);
 
@@ -103,8 +103,8 @@ public enum Action {
     }
 
     protected Cell getCellRightFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getX();
-        int y = cell.getY() + 1;
+        int x = cell.getCoordinateXInBoard();
+        int y = cell.getCoordinateYInBoard() + 1;
 
         checkValidCoordinates(x, y);
 

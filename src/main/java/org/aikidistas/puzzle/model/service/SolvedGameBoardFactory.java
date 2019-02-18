@@ -19,7 +19,7 @@ public class SolvedGameBoardFactory {
 
     private void createSolvedBoard() {
         cleanBoard();
-        createSeriallyNumberedCellsInBoard();
+        initializeOrderedBoard();
         makeLastCellEmpty();
     }
 
@@ -28,13 +28,13 @@ public class SolvedGameBoardFactory {
         numberOfInitializedCells = 0;
     }
 
-    private void createSeriallyNumberedCellsInBoard() {
+    private void initializeOrderedBoard() {
         for (int rowNumber = 0; rowNumber < BORDER_SIZE; rowNumber++) {
-            initializeNumberedBoardRow(rowNumber);
+            initializeOrderedBoardRow(rowNumber);
         }
     }
 
-    private void initializeNumberedBoardRow(int rowNumber) {
+    private void initializeOrderedBoardRow(int rowNumber) {
         for (int columnNumber = 0; columnNumber < BORDER_SIZE; columnNumber++) {
             initializeCell(rowNumber, columnNumber);
         }

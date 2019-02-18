@@ -34,14 +34,14 @@ public class GameController {
         gameBoard = gameBoardService.getShuffledGameBoard();
     }
 
+    private void drawBoard() {
+        view.render(gameBoard);
+    }
+
     private Action handleUserAction() {
         Action action = getUserAction();
         gameBoard = action.applyTo(gameBoard);
         return action;
-    }
-
-    private void drawBoard() {
-        view.render(gameBoard);
     }
 
     private Action getUserAction() {
