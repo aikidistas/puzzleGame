@@ -7,18 +7,32 @@ import org.aikidistas.puzzle.userinteraction.OutputHandler;
 
 @AllArgsConstructor
 public class GameView {
+    public static final String HEADER = "Showing the game board:";
     private OutputHandler outputHandler;
 
     public void render(GameBoard gameBoard) {
-        StringBuilder output = new StringBuilder();
-        for (Cell[] row : gameBoard.getBoard()) {
-            for (Cell cell : row) {
-                output.append(String.format(" %2s ", cell.getValue()));
-            }
-            output.append("\n");
-        }
+        outputHandler.displayMessage(HEADER);
+        outputHandler.displayMessage(renderGameBoard(gameBoard));
+    }
 
-        outputHandler.displayMessage("Showing the game board:");
-        outputHandler.displayMessage(output.toString());
+    private String renderGameBoard(GameBoard gameBoard) {
+        StringBuilder renderedGameBoard = new StringBuilder();
+        for (Cell[] row : gameBoard.getBoard()) {
+            renderedGameBoard.append(renderGameBoardRow(row));
+        }
+        return renderedGameBoard.toString();
+    }
+
+    private String renderGameBoardRow(Cell[] row) {
+        StringBuilder renderedRow = new StringBuilder();
+        for (Cell cell : row) {
+            renderedRow.append(renderGameBoardCell(cell));
+        }
+        renderedRow.append("\n");
+        return renderedRow.toString();
+    }
+
+    private String renderGameBoardCell(Cell cell) {
+        return String.format(" %2s ", cell.getValue());
     }
 }
