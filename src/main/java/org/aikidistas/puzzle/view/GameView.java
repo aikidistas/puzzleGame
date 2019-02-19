@@ -1,7 +1,6 @@
 package org.aikidistas.puzzle.view;
 
 import lombok.AllArgsConstructor;
-import org.aikidistas.puzzle.model.Cell;
 import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 
@@ -17,22 +16,22 @@ public class GameView {
 
     private String renderGameBoard(GameBoard gameBoard) {
         StringBuilder renderedGameBoard = new StringBuilder();
-        for (Cell[] row : gameBoard.getBoard()) {
+        for (int[] row : gameBoard.getBoard()) {
             renderedGameBoard.append(renderGameBoardRow(row));
         }
         return renderedGameBoard.toString();
     }
 
-    private String renderGameBoardRow(Cell[] row) {
+    private String renderGameBoardRow(int[] row) {
         StringBuilder renderedRow = new StringBuilder();
-        for (Cell cell : row) {
+        for (int cell : row) {
             renderedRow.append(renderGameBoardCell(cell));
         }
         renderedRow.append("\n");
         return renderedRow.toString();
     }
 
-    private String renderGameBoardCell(Cell cell) {
-        return String.format(" %2s ", cell.getValue());
+    private String renderGameBoardCell(int cell) {
+        return String.format(" %2s ", cell);
     }
 }

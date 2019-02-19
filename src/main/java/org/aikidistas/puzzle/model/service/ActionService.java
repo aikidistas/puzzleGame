@@ -1,7 +1,7 @@
 package org.aikidistas.puzzle.model.service;
 
 import lombok.extern.log4j.Log4j2;
-import org.aikidistas.puzzle.model.Cell;
+import org.aikidistas.puzzle.model.Coordinate;
 import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.model.exception.CellDoesNotExistException;
 
@@ -12,38 +12,38 @@ import static org.aikidistas.puzzle.model.GameBoard.BORDER_SIZE;
 public abstract class ActionService {
     public abstract GameBoard applyTo(GameBoard gameBoard);
 
-    Cell getCellUpFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getCoordinateXInBoard() - 1;
-        int y = cell.getCoordinateYInBoard();
+    Coordinate getCellUpFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
+        int x = coordinate.getX() - 1;
+        int y = coordinate.getY();
 
         checkValidCoordinates(x, y);
-        return gameBoard.getBoard()[x][y];
+        return Coordinate.fromCoordinates(x, y);
     }
 
-    Cell getCellDownFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getCoordinateXInBoard() + 1;
-        int y = cell.getCoordinateYInBoard();
+    Coordinate getCellDownFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
+        int x = coordinate.getX() + 1;
+        int y = coordinate.getY();
 
         checkValidCoordinates(x, y);
-        return gameBoard.getBoard()[x][y];
+        return Coordinate.fromCoordinates(x, y);
     }
 
-    Cell getCellLeftFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getCoordinateXInBoard();
-        int y = cell.getCoordinateYInBoard() - 1;
+    Coordinate getCellLeftFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
+        int x = coordinate.getX();
+        int y = coordinate.getY() - 1;
 
         checkValidCoordinates(x, y);
 
-        return gameBoard.getBoard()[x][y];
+        return Coordinate.fromCoordinates(x, y);
     }
 
-    Cell getCellRightFrom(Cell cell, GameBoard gameBoard) throws CellDoesNotExistException {
-        int x = cell.getCoordinateXInBoard();
-        int y = cell.getCoordinateYInBoard() + 1;
+    Coordinate getCellRightFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
+        int x = coordinate.getX();
+        int y = coordinate.getY() + 1;
 
         checkValidCoordinates(x, y);
 
-        return gameBoard.getBoard()[x][y];
+        return Coordinate.fromCoordinates(x, y);
     }
 
     private void checkValidCoordinates(int x, int y) throws CellDoesNotExistException {
@@ -52,17 +52,12 @@ public abstract class ActionService {
         }
     }
 
-    void switchCells(Cell cell1, Cell cell2) {
-        int value = cell1.getValue();
-        cell1.setValue(cell2.getValue());
-        cell2.setValue(value);
-    }
-
-    Cell getEmptyCell(GameBoard gameBoard) {
-        for (Cell[] row : gameBoard.getBoard()) {
-            for (Cell cell : row) {
-                if (cell.isEmpty()) {
-                    return cell;
+    Coordinate getEmptyCell(GameBoard gameBoard) {
+        int[][] board = gameBoard.getBoard();
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[x].length; y++) {
+                if (board[x][y] == Coordinate.EMPTY_VALUE) {
+                    return Coordinate.fromCoordinates(x, y);
                 }
             }
         }
