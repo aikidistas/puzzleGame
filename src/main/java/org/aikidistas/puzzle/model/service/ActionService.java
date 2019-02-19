@@ -18,7 +18,7 @@ public abstract class ActionService {
         int y = coordinate.getY();
 
         checkValidCoordinates(x, y);
-        return Coordinate.fromCoordinates(x, y);
+        return new Coordinate(x, y);
     }
 
     Coordinate getCellDownFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
@@ -26,7 +26,7 @@ public abstract class ActionService {
         int y = coordinate.getY();
 
         checkValidCoordinates(x, y);
-        return Coordinate.fromCoordinates(x, y);
+        return new Coordinate(x, y);
     }
 
     Coordinate getCellLeftFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
@@ -35,7 +35,7 @@ public abstract class ActionService {
 
         checkValidCoordinates(x, y);
 
-        return Coordinate.fromCoordinates(x, y);
+        return new Coordinate(x, y);
     }
 
     Coordinate getCellRightFrom(Coordinate coordinate, GameBoard gameBoard) throws CellDoesNotExistException {
@@ -44,7 +44,7 @@ public abstract class ActionService {
 
         checkValidCoordinates(x, y);
 
-        return Coordinate.fromCoordinates(x, y);
+        return new Coordinate(x, y);
     }
 
     private void checkValidCoordinates(int x, int y) throws CellDoesNotExistException {
@@ -58,7 +58,7 @@ public abstract class ActionService {
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board[x].length; y++) {
                 if (board[x][y] == EMPTY_CELL) {
-                    return Coordinate.fromCoordinates(x, y);
+                    return new Coordinate(x, y);
                 }
             }
         }

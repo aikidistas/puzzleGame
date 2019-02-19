@@ -1,13 +1,11 @@
 package org.aikidistas.puzzle.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Arrays;
 
 @Getter
-@EqualsAndHashCode
 @ToString
 public class GameBoard {
     public static final int BORDER_SIZE = 4;
@@ -28,6 +26,15 @@ public class GameBoard {
         return new GameBoard(board);
     }
 
+    public static GameBoard createSolvedGameBoard() {
+        return new GameBoard(new int[][]{
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        });
+    }
+
     public void switchCells(Coordinate coordinate, Coordinate coordinate2) {
         // TODO: add error handling for invalid coordinates
         int x1 = coordinate.getX();
@@ -37,8 +44,6 @@ public class GameBoard {
         int valueBackup = board[x1][y1];
         board[x1][y1] = board[x2][y2];
         board[x2][y2] = valueBackup;
-
-
     }
 
     public boolean isSolved() {

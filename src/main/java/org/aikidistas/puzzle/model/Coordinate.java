@@ -13,12 +13,8 @@ public class Coordinate {
     private final int x;
     private final int y;
 
-    private Coordinate(int x, int y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    public static Coordinate fromCoordinates(int coordinateXInBoard, int coordinateYInBoard) {
-        return new Coordinate(coordinateXInBoard, coordinateYInBoard);
     }
 }
