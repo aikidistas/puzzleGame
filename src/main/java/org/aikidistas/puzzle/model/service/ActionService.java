@@ -6,6 +6,7 @@ import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.model.exception.CellDoesNotExistException;
 
 import static org.aikidistas.puzzle.model.GameBoard.BORDER_SIZE;
+import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
 
 @Log4j2
 @SuppressWarnings("squid:S1610")
@@ -56,7 +57,7 @@ public abstract class ActionService {
         int[][] board = gameBoard.getBoard();
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board[x].length; y++) {
-                if (board[x][y] == Coordinate.EMPTY_VALUE) {
+                if (board[x][y] == EMPTY_CELL) {
                     return Coordinate.fromCoordinates(x, y);
                 }
             }

@@ -10,7 +10,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Coordinate {
-    public static final int EMPTY_VALUE = 0;
     private final int x;
     private final int y;
 

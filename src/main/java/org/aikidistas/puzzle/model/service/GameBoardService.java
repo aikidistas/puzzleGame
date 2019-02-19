@@ -6,10 +6,10 @@ import org.aikidistas.puzzle.model.GameBoard;
 @AllArgsConstructor
 public class GameBoardService {
     GameBoardShufflerService shuffler;
-    SolvedGameBoardFactory solvedGameBoardFactory;
+    GameBoardFactory gameBoardFactory;
 
     public GameBoard getSolvedGameBoard() {
-        return solvedGameBoardFactory.create();
+        return gameBoardFactory.createSolvedBoard();
     }
 
     public GameBoard getShuffledGameBoard() {

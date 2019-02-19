@@ -2,21 +2,82 @@ package org.aikidistas.puzzle.view;
 
 import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameViewTest {
 
-    @Test
-    void render() {
-        // GIVEN
-        OutputHandler outputHandlerMock = Mockito.mock(OutputHandler.class);
-        GameView view = new GameView(outputHandlerMock);
+    StringWriter output;
+    GameView view;
 
-        GameBoard board = new GameBoard();
-        board.setBoard(new int[][]{});
+    @BeforeEach
+    void setUp() {
+        output = new StringWriter();
+        OutputHandler outputHandler = new OutputHandler(new PrintWriter(output));
+        view = new GameView(outputHandler);
+    }
+
+    @Test
+    void renderSolvedBoard() {
+        // GIVEN
+        GameBoard board = GameBoard.createFrom2DArray(new int[][]{
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        });
+
+        // WHEN
         view.render(board);
 
-        // TODO: continue here
+        // THEN
+        String expectedOutput =
+                "You are the WINNER!!!!! Here is your solved board:\n" +
+                        " --------------------- \n" +
+                        " |  1 |  2 |  3 |  4 | \n" +
+                        " --------------------- \n" +
+                        " |  5 |  6 |  7 |  8 | \n" +
+                        " --------------------- \n" +
+                        " |  9 | 10 | 11 | 12 | \n" +
+                        " --------------------- \n" +
+                        " | 13 | 14 | 15 |    | \n" +
+                        " --------------------- \n" +
+                        "\n";
+        assertEquals(expectedOutput, output.toString());
+    }
+
+    @Test
+    void renderRandomBoard() {
+        // GIVEN
+        GameBoard board = GameBoard.createFrom2DArray(new int[][]{
+                {10, 3, 5, 6},
+                {EMPTY_CELL, 4, 7, 9},
+                {1, 2, 12, 8},
+                {13, 14, 11, 15}
+        });
+
+        // WHEN
+        view.render(board);
+
+        // THEN
+        String expectedOutput =
+                "15 Puzzle game. Move around empty cell to solve it.\n" +
+                        " --------------------- \n" +
+                        " | 10 |  3 |  5 |  6 | \n" +
+                        " --------------------- \n" +
+                        " |    |  4 |  7 |  9 | \n" +
+                        " --------------------- \n" +
+                        " |  1 |  2 | 12 |  8 | \n" +
+                        " --------------------- \n" +
+                        " | 13 | 14 | 11 | 15 | \n" +
+                        " --------------------- \n" +
+                        "\n";
+        assertEquals(expectedOutput, output.toString());
     }
 }
