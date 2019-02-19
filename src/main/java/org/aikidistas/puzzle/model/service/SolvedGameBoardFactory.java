@@ -36,11 +36,11 @@ public class SolvedGameBoardFactory {
 
     private void initializeOrderedBoardRow(int rowNumber) {
         for (int columnNumber = 0; columnNumber < BORDER_SIZE; columnNumber++) {
-            initializeCell(rowNumber, columnNumber);
+            initializeCellWithNextNumber(rowNumber, columnNumber);
         }
     }
 
-    private void initializeCell(int rowNumber, int columnNumber) {
+    private void initializeCellWithNextNumber(int rowNumber, int columnNumber) {
         numberOfInitializedCells++;
         board[rowNumber][columnNumber] = Cell.fromValueAndCoordinates(numberOfInitializedCells, rowNumber, columnNumber);
     }
