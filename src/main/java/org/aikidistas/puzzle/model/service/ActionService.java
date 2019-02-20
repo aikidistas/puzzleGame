@@ -5,6 +5,8 @@ import org.aikidistas.puzzle.model.Coordinate;
 import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.model.exception.CellDoesNotExistException;
 
+import java.util.Arrays;
+
 import static org.aikidistas.puzzle.model.GameBoard.BORDER_SIZE;
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
 
@@ -63,7 +65,7 @@ public abstract class ActionService {
             }
         }
 
-        log.error("Unable to find empty cell in the board: " + gameBoard);
+        log.error("Unable to find empty cell in the board: " + Arrays.deepToString(gameBoard.getBoard()));
         throw new IllegalArgumentException();
     }
 }

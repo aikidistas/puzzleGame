@@ -1,12 +1,7 @@
 package org.aikidistas.puzzle.model;
 
 import lombok.extern.log4j.Log4j2;
-import org.aikidistas.puzzle.model.service.ActionDownService;
-import org.aikidistas.puzzle.model.service.ActionLeftService;
-import org.aikidistas.puzzle.model.service.ActionNoneService;
-import org.aikidistas.puzzle.model.service.ActionRightService;
-import org.aikidistas.puzzle.model.service.ActionService;
-import org.aikidistas.puzzle.model.service.ActionUpService;
+import org.aikidistas.puzzle.model.service.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,12 +22,10 @@ public enum Action {
         this.actionService = actionService;
     }
 
-    public GameBoard applyTo(GameBoard gameBoard) {
-        return actionService.applyTo(gameBoard);
-    }
-
     public static List<String> getAvailableActionsAsText() {
-        return Arrays.stream(Action.values()).map(Enum::toString).collect(Collectors.toList());
+        return Arrays.stream(Action.values())
+                .map(Enum::toString)
+                .collect(Collectors.toList());
     }
 
     public static Action getRandomMove() {
@@ -40,5 +33,7 @@ public enum Action {
         return Action.values()[pick];
     }
 
-
+    public GameBoard applyTo(GameBoard gameBoard) {
+        return actionService.applyTo(gameBoard);
+    }
 }

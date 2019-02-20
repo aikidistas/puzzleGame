@@ -2,7 +2,6 @@ package org.aikidistas.puzzle.controller;
 
 import org.aikidistas.puzzle.model.Action;
 import org.aikidistas.puzzle.model.GameBoard;
-import org.aikidistas.puzzle.model.service.GameBoardService;
 import org.aikidistas.puzzle.userinteraction.InputHandler;
 import org.aikidistas.puzzle.view.GameView;
 
@@ -10,17 +9,15 @@ public class GameController {
     private static final String CHOOSE_ACTION_TEXT = "Choose action:";
     private GameView view;
     private InputHandler inputHandler;
-    private GameBoardService gameBoardService;
     private GameBoard gameBoard;
 
-    public GameController(GameView view, InputHandler inputHandler, GameBoardService gameBoardService) {
+    public GameController(GameBoard model, GameView view, InputHandler inputHandler) {
+        this.gameBoard = model;
         this.view = view;
         this.inputHandler = inputHandler;
-        this.gameBoardService = gameBoardService;
     }
 
     public void start() {
-        generateRandomBoard();
         drawBoard();
         Action action = handleUserAction();
 
@@ -28,10 +25,6 @@ public class GameController {
             drawBoard();
             action = handleUserAction();
         }
-    }
-
-    private void generateRandomBoard() {
-        gameBoard = gameBoardService.getShuffledGameBoard();
     }
 
     private void drawBoard() {

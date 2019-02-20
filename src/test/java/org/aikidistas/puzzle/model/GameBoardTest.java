@@ -24,6 +24,47 @@ class GameBoardTest {
     }
 
     @Test
+    void createSolvedGameBoard() {
+        // GIVEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+
+        // WHEN
+        GameBoard board = GameBoard.createSolvedGameBoard();
+
+        // THEN
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void createSolvedGameBoard_returnsNewInternalBoardStateEachTime() {
+        // WHEN
+        GameBoard board = GameBoard.createSolvedGameBoard();
+        GameBoard board2 = GameBoard.createSolvedGameBoard();
+
+        // THEN
+        assertNotEquals(board, board2);
+        assertNotEquals(board.getBoard(), board2.getBoard());
+        assertNotEquals(board.getBoard()[0], board2.getBoard()[0]);
+        assertNotEquals(board.getBoard()[1], board2.getBoard()[1]);
+        assertNotEquals(board.getBoard()[2], board2.getBoard()[2]);
+        assertNotEquals(board.getBoard()[3], board2.getBoard()[3]);
+    }
+
+    @Test
+    void createShuffledGameBoard() {
+        // WHEN
+        GameBoard board = GameBoard.createShuffledGameBoard();
+
+        // THEN
+        assertFalse(board.isSolved());
+    }
+
+    @Test
     void isSolved() {
         // GIVEN
         int[][] solvedBoard = {

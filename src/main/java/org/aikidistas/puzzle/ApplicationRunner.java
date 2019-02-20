@@ -1,8 +1,7 @@
 package org.aikidistas.puzzle;
 
 import org.aikidistas.puzzle.controller.GameController;
-import org.aikidistas.puzzle.model.service.GameBoardService;
-import org.aikidistas.puzzle.model.service.GameBoardShufflerService;
+import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.userinteraction.InputHandler;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 import org.aikidistas.puzzle.view.GameView;
@@ -22,9 +21,9 @@ public class ApplicationRunner {
     private static GameController initializeGameController() {
         OutputHandler outputHandler = new OutputHandler(new PrintWriter(System.out, true));
         return new GameController(
+                GameBoard.createShuffledGameBoard(),
                 new GameView(outputHandler),
-                new InputHandler(new Scanner(System.in), outputHandler),
-                new GameBoardService(new GameBoardShufflerService())
+                new InputHandler(new Scanner(System.in), outputHandler)
         );
     }
 }
