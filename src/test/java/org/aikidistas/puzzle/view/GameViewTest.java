@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
+import static org.aikidistas.puzzle.userinteraction.OutputHandler.LINE_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameViewTest {
@@ -39,17 +40,17 @@ class GameViewTest {
 
         // THEN
         String expectedOutput =
-                "You are the WINNER!!!!! Here is your solved board:" + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " |  1 |  2 |  3 |  4 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " |  5 |  6 |  7 |  8 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " |  9 | 10 | 11 | 12 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " | 13 | 14 | 15 |    | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        System.lineSeparator();
+                "You are the WINNER!!!!! Here is your solved board:" + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " |  1 |  2 |  3 |  4 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " |  5 |  6 |  7 |  8 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " |  9 | 10 | 11 | 12 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " | 13 | 14 | 15 |    | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        LINE_SEPARATOR;
         Assertions.
         assertEquals(expectedOutput, output.toString());
     }
@@ -69,17 +70,17 @@ class GameViewTest {
 
         // THEN
         String expectedOutput =
-                "15 Puzzle game. Move around empty cell to solve it." + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " | 10 |  3 |  5 |  6 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " |    |  4 |  7 |  9 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " |  1 |  2 | 12 |  8 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        " | 13 | 14 | 11 | 15 | " + System.lineSeparator() +
-                        " --------------------- " + System.lineSeparator() +
-                        System.lineSeparator();
+                "15 Puzzle game. Move around empty cell to solve it." + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " | 10 |  3 |  5 |  6 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " |    |  4 |  7 |  9 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " |  1 |  2 | 12 |  8 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        " | 13 | 14 | 11 | 15 | " + LINE_SEPARATOR +
+                        " --------------------- " + LINE_SEPARATOR +
+                        LINE_SEPARATOR;
         assertEquals(expectedOutput, output.toString());
     }
 }

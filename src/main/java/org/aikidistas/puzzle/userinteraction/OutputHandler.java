@@ -3,6 +3,7 @@ package org.aikidistas.puzzle.userinteraction;
 import java.io.PrintWriter;
 
 public class OutputHandler {
+    public static final String LINE_SEPARATOR = System.lineSeparator();
     private PrintWriter output;
 
     public OutputHandler(PrintWriter output) {

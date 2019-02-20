@@ -5,12 +5,13 @@ import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
+import static org.aikidistas.puzzle.userinteraction.OutputHandler.LINE_SEPARATOR;
 
 @AllArgsConstructor
 public class GameView {
     public static final String HEADER = "15 Puzzle game. Move around empty cell to solve it.";
     public static final String HEADER_SOLVED_BOARD = "You are the WINNER!!!!! Here is your solved board:";
-    public static final String ROW_SEPARATOR = " --------------------- " + System.lineSeparator();
+    public static final String ROW_SEPARATOR = " --------------------- " + LINE_SEPARATOR;
     public static final String COLUMN_SEPARATOR = " | ";
     private OutputHandler outputHandler;
 
@@ -47,7 +48,7 @@ public class GameView {
         for (int cell : row) {
             renderedRow.append(renderGameBoardCell(cell));
         }
-        renderedRow.append(COLUMN_SEPARATOR + System.lineSeparator());
+        renderedRow.append(COLUMN_SEPARATOR + LINE_SEPARATOR);
         return renderedRow.toString();
     }
 
