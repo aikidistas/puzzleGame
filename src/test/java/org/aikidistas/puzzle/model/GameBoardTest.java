@@ -1,5 +1,6 @@
 package org.aikidistas.puzzle.model;
 
+
 import org.junit.jupiter.api.Test;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
@@ -7,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameBoardTest {
     @Test
-    void createFromTwoDimentionalIntArray() {
+    void createFromTwoDimentionalIntArray() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
         // GIVEN
         int[][] expectedBoard = {
                 {1, 2, 3, 4},
@@ -21,6 +22,20 @@ class GameBoardTest {
 
         // THEN
         assertEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void createFromTwoDimentionalIntArray_withoutEmptyCell_throwsException() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}
+        };
+
+        // THEN
+        assertThrows(GameBoard.IllegalBoardEmptyCellNotFoundException.class, () -> GameBoard.createFrom2DArray(expectedBoard));
     }
 
     @Test
@@ -65,7 +80,7 @@ class GameBoardTest {
     }
 
     @Test
-    void isSolved() {
+    void isSolved() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
         // GIVEN
         int[][] solvedBoard = {
                 {1, 2, 3, 4},
@@ -80,7 +95,7 @@ class GameBoardTest {
     }
 
     @Test
-    void switchCells() {
+    void moveUp() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -91,16 +106,183 @@ class GameBoardTest {
         GameBoard board = GameBoard.createFrom2DArray(originalBoard);
 
         // WHEN
-        board.switchCells(new Coordinate(3, 3), new Coordinate(2, 3));
+        board.moveUp();
 
         // THEN
-        int[][] expectedChangedBoard = {
+        int[][] expectedBoard = {
                 {1, 2, 3, 4},
                 {5, 6, 7, 8},
                 {9, 10, 11, EMPTY_CELL},
                 {13, 14, 15, 12}
         };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
 
-        assertArrayEquals(expectedChangedBoard, board.getBoard());
+    @Test
+    void moveUp_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, EMPTY_CELL},
+                {5, 6, 7, 4},
+                {9, 10, 11, 8},
+                {13, 14, 15, 12}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveUp();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, EMPTY_CELL},
+                {5, 6, 7, 4},
+                {9, 10, 11, 8},
+                {13, 14, 15, 12}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void moveDown() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, EMPTY_CELL},
+                {5, 6, 7, 4},
+                {9, 10, 11, 8},
+                {13, 14, 15, 12}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveDown();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, EMPTY_CELL},
+                {9, 10, 11, 8},
+                {13, 14, 15, 12}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void moveDown_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveDown();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void moveLeft() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveLeft();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, EMPTY_CELL, 15}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void moveLeft_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {EMPTY_CELL, 13, 14, 15}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveLeft();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {EMPTY_CELL, 13, 14, 15}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void moveRight() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {EMPTY_CELL, 13, 14, 15}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveRight();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, EMPTY_CELL, 14, 15}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void moveRight_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+        // GIVEN
+        int[][] originalBoard = {
+                {1, 2, 3, EMPTY_CELL},
+                {5, 6, 7, 4},
+                {9, 10, 11, 8},
+                {13, 14, 15, 12}
+        };
+        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+
+        // WHEN
+        board.moveRight();
+
+        // THEN
+        int[][] expectedBoard = {
+                {1, 2, 3, EMPTY_CELL},
+                {5, 6, 7, 4},
+                {9, 10, 11, 8},
+                {13, 14, 15, 12}
+        };
+        assertArrayEquals(expectedBoard, board.getBoard());
     }
 }

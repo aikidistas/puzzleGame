@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
+
+// TODO: test getter returns a copy of internal state, not the internal state itself
 @Getter
 public class GameBoard {
     public static final int BORDER_SIZE = 4;
@@ -15,15 +17,36 @@ public class GameBoard {
             {9, 10, 11, 12},
             {13, 14, 15, EMPTY_CELL}
     };
+
     private final int[][] board;
+    private Coordinate emptyCell = new Coordinate(3, 3);
 
     private GameBoard(int[][] board) {
         this.board = board;
     }
 
-    public static GameBoard createFrom2DArray(int[][] board) {
-        return new GameBoard(board);
+    private GameBoard(int[][] board, Coordinate emptyCell) {
+        this.board = board;
+        this.emptyCell = emptyCell;
     }
+
+    public static GameBoard createFrom2DArray(int[][] newBoard) throws IllegalBoardEmptyCellNotFoundException {
+        Coordinate newEmptyCell = findEmptyCellInBoard(newBoard);
+
+        return new GameBoard(newBoard, newEmptyCell);
+    }
+
+    private static Coordinate findEmptyCellInBoard(int[][] someBoard) throws IllegalBoardEmptyCellNotFoundException {
+        for (int x = 0; x < someBoard.length; x++) {
+            for (int y = 0; y < someBoard[x].length; y++) {
+                if (someBoard[x][y] == EMPTY_CELL) {
+                    return new Coordinate(x, y);
+                }
+            }
+        }
+        throw new IllegalBoardEmptyCellNotFoundException();
+    }
+
 
     public static GameBoard createSolvedGameBoard() {
         return new GameBoard(new int[][]{
@@ -38,8 +61,50 @@ public class GameBoard {
         return createSolvedGameBoard().shuffle();
     }
 
-    public void switchCells(Coordinate coordinate, Coordinate coordinate2) {
-        // TODO: add error handling for invalid coordinates
+    public void moveUp() {
+        move(emptyCell.getNeighbourUp());
+    }
+
+    public void moveDown() {
+        move(emptyCell.getNeighbourDown());
+    }
+
+    public void moveLeft() {
+        move(emptyCell.getNeighbourLeft());
+    }
+
+    public void moveRight() {
+        move(emptyCell.getNeighbourRight());
+    }
+
+    public void move(Coordinate targetCell) {
+        if (isNotValidCoordinate(targetCell)) {
+            return;
+        }
+
+        emptyCell.getNeighbourUp();
+        switchCellsContent(emptyCell, targetCell);
+        emptyCell = targetCell;
+    }
+
+    private boolean isNotValidCoordinate(Coordinate targetCell) {
+        if (isNotValidRow(targetCell)) {
+            return true;
+        }
+
+        return isNotValidColumn(targetCell);
+
+    }
+
+    private boolean isNotValidRow(Coordinate targetCell) {
+        return (targetCell.getX() < 0) || (targetCell.getX() >= board.length);
+    }
+
+    private boolean isNotValidColumn(Coordinate targetCell) {
+        return (targetCell.getY() < 0) || (targetCell.getY() >= board[targetCell.getX()].length);
+    }
+
+    private void switchCellsContent(Coordinate coordinate, Coordinate coordinate2) {
         int x1 = coordinate.getX();
         int y1 = coordinate.getY();
         int x2 = coordinate2.getX();
@@ -62,5 +127,8 @@ public class GameBoard {
 
     private void applyRandomMove() {
         Action.getRandomMove().applyTo(this);
+    }
+
+    public static class IllegalBoardEmptyCellNotFoundException extends Exception {
     }
 }

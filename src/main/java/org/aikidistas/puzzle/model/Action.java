@@ -1,7 +1,6 @@
 package org.aikidistas.puzzle.model;
 
 import lombok.extern.log4j.Log4j2;
-import org.aikidistas.puzzle.model.service.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,17 +9,35 @@ import java.util.stream.Collectors;
 
 @Log4j2
 public enum Action {
-    UP(new ActionUpService()),
-    DOWN(new ActionDownService()),
-    LEFT(new ActionLeftService()),
-    RIGHT(new ActionRightService()),
-    QUIT(new ActionNoneService());
-
-    protected ActionService actionService;
-
-    Action(ActionService actionService) {
-        this.actionService = actionService;
-    }
+    UP {
+        public GameBoard applyTo(GameBoard gameBoard) {
+            gameBoard.moveUp();
+            return gameBoard;
+        }
+    },
+    DOWN {
+        public GameBoard applyTo(GameBoard gameBoard) {
+            gameBoard.moveDown();
+            return gameBoard;
+        }
+    },
+    LEFT {
+        public GameBoard applyTo(GameBoard gameBoard) {
+            gameBoard.moveLeft();
+            return gameBoard;
+        }
+    },
+    RIGHT {
+        public GameBoard applyTo(GameBoard gameBoard) {
+            gameBoard.moveRight();
+            return gameBoard;
+        }
+    },
+    QUIT {
+        public GameBoard applyTo(GameBoard gameBoard) {
+            return gameBoard;
+        }
+    };
 
     public static List<String> getAvailableActionsAsText() {
         return Arrays.stream(Action.values())
@@ -29,11 +46,13 @@ public enum Action {
     }
 
     public static Action getRandomMove() {
-        int pick = new Random().nextInt(Action.values().length - 1);
-        return Action.values()[pick];
+        int randomMoveActionIndex = new Random().nextInt(getNumberOfActionsExcludingLastQuitAction());
+        return Action.values()[randomMoveActionIndex];
     }
 
-    public GameBoard applyTo(GameBoard gameBoard) {
-        return actionService.applyTo(gameBoard);
+    private static int getNumberOfActionsExcludingLastQuitAction() {
+        return Action.values().length - 1;
     }
+
+    public abstract GameBoard applyTo(GameBoard gameBoard);
 }

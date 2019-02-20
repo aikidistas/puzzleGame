@@ -24,7 +24,7 @@ class GameViewTest {
     }
 
     @Test
-    void renderSolvedBoard() {
+    void renderSolvedBoard() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
         // GIVEN
         GameBoard board = GameBoard.createFrom2DArray(new int[][]{
                 {1, 2, 3, 4},
@@ -53,7 +53,7 @@ class GameViewTest {
     }
 
     @Test
-    void renderRandomBoard() {
+    void renderRandomBoard() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
         // GIVEN
         GameBoard board = GameBoard.createFrom2DArray(new int[][]{
                 {10, 3, 5, 6},
