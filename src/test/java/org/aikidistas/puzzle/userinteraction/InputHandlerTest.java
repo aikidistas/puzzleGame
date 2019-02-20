@@ -20,7 +20,7 @@ class InputHandlerTest {
     void getUserChoice_acceptsEmptyString_asNewLineAnswer() {
         // GIVEN
         StringWriter output = new StringWriter();
-        String input = "\n";
+        String input = System.lineSeparator();
         InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
         String questionText = "Please click enter keyboard button...";
         String expectedAnswer = "";
@@ -37,7 +37,7 @@ class InputHandlerTest {
     void showsMessage() {
         // GIVEN
         StringWriter output = new StringWriter();
-        String input = "\n";
+        String input = System.lineSeparator();
         InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
         String questionText = "Please click enter keyboard button...";
         String expectedAnswer = "";
@@ -54,8 +54,8 @@ class InputHandlerTest {
     void showsAvailableAnswers() {
         // GIVEN
         StringWriter output = new StringWriter();
-        String input = "WRONG_ANSWER\n"
-                + "B\n";
+        String input = "WRONG_ANSWER" + System.lineSeparator()
+                + "B" + System.lineSeparator();
         InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
         String questionText = "This is a question...";
         List<String> availableAnswers = Arrays.asList("B", "C");

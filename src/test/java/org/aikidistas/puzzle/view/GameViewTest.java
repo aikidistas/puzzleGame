@@ -2,6 +2,7 @@ package org.aikidistas.puzzle.view;
 
 import org.aikidistas.puzzle.model.GameBoard;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,17 +39,18 @@ class GameViewTest {
 
         // THEN
         String expectedOutput =
-                "You are the WINNER!!!!! Here is your solved board:\n" +
-                        " --------------------- \n" +
-                        " |  1 |  2 |  3 |  4 | \n" +
-                        " --------------------- \n" +
-                        " |  5 |  6 |  7 |  8 | \n" +
-                        " --------------------- \n" +
-                        " |  9 | 10 | 11 | 12 | \n" +
-                        " --------------------- \n" +
-                        " | 13 | 14 | 15 |    | \n" +
-                        " --------------------- \n" +
-                        "\n";
+                "You are the WINNER!!!!! Here is your solved board:" + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " |  1 |  2 |  3 |  4 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " |  5 |  6 |  7 |  8 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " |  9 | 10 | 11 | 12 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " | 13 | 14 | 15 |    | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        System.lineSeparator();
+        Assertions.
         assertEquals(expectedOutput, output.toString());
     }
 
@@ -67,17 +69,17 @@ class GameViewTest {
 
         // THEN
         String expectedOutput =
-                "15 Puzzle game. Move around empty cell to solve it.\n" +
-                        " --------------------- \n" +
-                        " | 10 |  3 |  5 |  6 | \n" +
-                        " --------------------- \n" +
-                        " |    |  4 |  7 |  9 | \n" +
-                        " --------------------- \n" +
-                        " |  1 |  2 | 12 |  8 | \n" +
-                        " --------------------- \n" +
-                        " | 13 | 14 | 11 | 15 | \n" +
-                        " --------------------- \n" +
-                        "\n";
+                "15 Puzzle game. Move around empty cell to solve it." + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " | 10 |  3 |  5 |  6 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " |    |  4 |  7 |  9 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " |  1 |  2 | 12 |  8 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        " | 13 | 14 | 11 | 15 | " + System.lineSeparator() +
+                        " --------------------- " + System.lineSeparator() +
+                        System.lineSeparator();
         assertEquals(expectedOutput, output.toString());
     }
 }
