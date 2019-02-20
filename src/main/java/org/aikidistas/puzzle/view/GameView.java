@@ -53,6 +53,6 @@ public class GameView {
     }
 
     private String renderGameBoardCell(int cell) {
-        return (cell != EMPTY_CELL) ? String.format(COLUMN_SEPARATOR + "%2s", cell) : COLUMN_SEPARATOR + "  ";
+        return (cell != EMPTY_CELL) ? String.format("%s%2s", COLUMN_SEPARATOR, cell) : COLUMN_SEPARATOR + "  ";
     }
 }

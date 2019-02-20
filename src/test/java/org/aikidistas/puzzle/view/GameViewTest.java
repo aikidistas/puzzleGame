@@ -13,6 +13,7 @@ import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
 import static org.aikidistas.puzzle.userinteraction.OutputHandler.LINE_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("squid:S1192")
 class GameViewTest {
 
     StringWriter output;
@@ -52,7 +53,7 @@ class GameViewTest {
                         " --------------------- " + LINE_SEPARATOR +
                         LINE_SEPARATOR;
         Assertions.
-        assertEquals(expectedOutput, output.toString());
+                assertEquals(expectedOutput, output.toString());
     }
 
     @Test

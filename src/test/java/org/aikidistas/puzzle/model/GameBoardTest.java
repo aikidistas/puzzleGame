@@ -4,8 +4,14 @@ package org.aikidistas.puzzle.model;
 import org.junit.jupiter.api.Test;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SuppressWarnings("squid:S00100")
 class GameBoardTest {
     @Test
     void createFromTwoDimentionalIntArray() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
@@ -25,7 +31,7 @@ class GameBoardTest {
     }
 
     @Test
-    void createFromTwoDimentionalIntArray_withoutEmptyCell_throwsException() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void createFromTwoDimentionalIntArray_withoutEmptyCell_throwsException() {
         // GIVEN
         int[][] expectedBoard = {
                 {1, 2, 3, 4},
