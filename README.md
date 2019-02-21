@@ -21,3 +21,10 @@ To check if project has at least 90% code coverage run:
 ```
 mvn verify
 ``` 
+
+Generated random game board is solvable. Proof of fact:
+```
+    The initial (solved) state is solvable.
+    After applying some number of random legal moves it becomes shuffled. 
+    You can solve board at least by repeating inversed previously applied random moves.
+```
