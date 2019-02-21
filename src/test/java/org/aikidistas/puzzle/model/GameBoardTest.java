@@ -1,6 +1,7 @@
 package org.aikidistas.puzzle.model;
 
 
+import org.aikidistas.puzzle.model.GameBoard.IllegalBoardWithoutEmptyCellException;
 import org.junit.jupiter.api.Test;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SuppressWarnings("squid:S00100")
 class GameBoardTest {
     @Test
-    void createFromTwoDimentionalIntArray() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void createFromTwoDimentionalIntArray() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] expectedBoard = {
                 {1, 2, 3, 4},
@@ -41,7 +42,7 @@ class GameBoardTest {
         };
 
         // THEN
-        assertThrows(GameBoard.IllegalBoardEmptyCellNotFoundException.class, () -> GameBoard.createFrom2DArray(expectedBoard));
+        assertThrows(IllegalBoardWithoutEmptyCellException.class, () -> GameBoard.createFrom2DArray(expectedBoard));
     }
 
     @Test
@@ -86,7 +87,7 @@ class GameBoardTest {
     }
 
     @Test
-    void isSolved() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void isSolved() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] solvedBoard = {
                 {1, 2, 3, 4},
@@ -101,7 +102,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveUp() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveUp() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -125,7 +126,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveUp_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveUp_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, EMPTY_CELL},
@@ -149,7 +150,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveDown() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveDown() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, EMPTY_CELL},
@@ -173,7 +174,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveDown_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveDown_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -197,7 +198,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveLeft() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveLeft() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -221,7 +222,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveLeft_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveLeft_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -245,7 +246,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveRight() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveRight() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -269,7 +270,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveRight_whenActionIsIllegal_DoNotMove() throws GameBoard.IllegalBoardEmptyCellNotFoundException {
+    void moveRight_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, EMPTY_CELL},

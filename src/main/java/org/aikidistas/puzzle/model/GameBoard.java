@@ -30,13 +30,13 @@ public class GameBoard {
         this.emptyCell = emptyCell;
     }
 
-    public static GameBoard createFrom2DArray(int[][] newBoard) throws IllegalBoardEmptyCellNotFoundException {
+    public static GameBoard createFrom2DArray(int[][] newBoard) throws IllegalBoardWithoutEmptyCellException {
         Coordinate newEmptyCell = findEmptyCellInBoard(newBoard);
 
         return new GameBoard(newBoard, newEmptyCell);
     }
 
-    private static Coordinate findEmptyCellInBoard(int[][] someBoard) throws IllegalBoardEmptyCellNotFoundException {
+    private static Coordinate findEmptyCellInBoard(int[][] someBoard) throws IllegalBoardWithoutEmptyCellException {
         for (int x = 0; x < someBoard.length; x++) {
             for (int y = 0; y < someBoard[x].length; y++) {
                 if (someBoard[x][y] == EMPTY_CELL) {
@@ -45,7 +45,7 @@ public class GameBoard {
             }
         }
 
-        throw new IllegalBoardEmptyCellNotFoundException();
+        throw new IllegalBoardWithoutEmptyCellException();
     }
 
 
@@ -130,7 +130,7 @@ public class GameBoard {
         Action.getRandomMove().applyTo(this);
     }
 
-    public static class IllegalBoardEmptyCellNotFoundException extends Exception {
+    public static class IllegalBoardWithoutEmptyCellException extends Exception {
     }
 
     @Getter

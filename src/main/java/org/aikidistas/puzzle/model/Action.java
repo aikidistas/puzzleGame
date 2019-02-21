@@ -1,13 +1,10 @@
 package org.aikidistas.puzzle.model;
 
-import lombok.extern.log4j.Log4j2;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-@Log4j2
 public enum Action {
     UP {
         public GameBoard applyTo(GameBoard gameBoard) {
