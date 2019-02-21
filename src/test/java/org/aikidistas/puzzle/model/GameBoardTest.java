@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("squid:S00100")
 class GameBoardTest {
     @Test
-    void createFromTwoDimentionalIntArray() {
+    void createFrom2DArrayAndEmptyCellCoordinate() {
         // GIVEN
         int[][] expectedBoard = {
                 {1, 2, 3, 4},
@@ -23,6 +23,29 @@ class GameBoardTest {
 
         // THEN
         assertEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void createFrom2DArrayAndEmptyCellCoordinate_shouldMarkProvidedCellAsEmpty() {
+        // GIVEN
+        int[][] boardWithoutEmptyCell = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}
+        };
+
+        // WHEN
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(boardWithoutEmptyCell, new Coordinate(3, 3));
+
+        // THEN
+        int[][] expectedBoardWithEmptyCell = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+        assertArrayEquals(expectedBoardWithEmptyCell, board.getBoard());
     }
 
     @Test
