@@ -2,7 +2,7 @@ package org.aikidistas.puzzle.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,12 +17,7 @@ class ActionTest {
         List<String> actualActionTexts = Action.getAvailableActionsAsText();
 
         // THEN
-        List<String> expectedActionTexts = new ArrayList<>();
-        expectedActionTexts.add("UP");
-        expectedActionTexts.add("DOWN");
-        expectedActionTexts.add("LEFT");
-        expectedActionTexts.add("RIGHT");
-        expectedActionTexts.add("QUIT");
+        List<String> expectedActionTexts = Arrays.asList("UP", "DOWN", "LEFT", "RIGHT", "QUIT");
 
         assertEquals(expectedActionTexts, actualActionTexts);
     }
