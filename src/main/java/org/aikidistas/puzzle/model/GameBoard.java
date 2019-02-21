@@ -42,9 +42,17 @@ public class GameBoard {
         return createSolvedGameBoard().shuffle();
     }
 
+    private static int[][] copyOf(int[][] sourceBoard) {
+        int rowsCount = sourceBoard.length;
+        int[][] targetBoard = new int[rowsCount][];
+        for (int i = 0; i < rowsCount; i++) {
+            targetBoard[i] = Arrays.copyOf(sourceBoard[i], sourceBoard[i].length);
+        }
+        return targetBoard;
+    }
+
     public int[][] getBoard() {
-        // TODO: getter returns a copy of internal state, not the internal state itself. Write test for it
-        return this.board;
+        return copyOf(board);
     }
 
     public void moveUp() {
@@ -63,7 +71,7 @@ public class GameBoard {
         move(emptyCell.getNeighbourRight());
     }
 
-    public void move(Coordinate targetCell) {
+    private void move(Coordinate targetCell) {
         if (isNotValidCoordinate(targetCell)) {
             return;
         }

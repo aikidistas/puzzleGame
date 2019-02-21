@@ -22,7 +22,7 @@ class GameBoardTest {
         GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(expectedBoard, new Coordinate(2, 3));
 
         // THEN
-        assertEquals(expectedBoard, board.getBoard());
+        assertArrayEquals(expectedBoard, board.getBoard());
     }
 
     @Test
@@ -294,5 +294,30 @@ class GameBoardTest {
                 {13, 14, 15, 12}
         };
         assertArrayEquals(expectedBoard, board.getBoard());
+    }
+
+    @Test
+    void getBoard_returnsCopyOfItsInternalState_soThatChangingReturnedValueOutsideDoesntChangeBoardsInternalState() {
+        // GIVEN
+        int[][] internalBoardState = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(internalBoardState, new Coordinate(3, 3));
+
+        // WHEN
+        int[][] externallyAvailableCopyOfBoardState = board.getBoard();
+        externallyAvailableCopyOfBoardState[0][0] = 1234;
+
+        // THEN
+        int[][] expectedBoardWithEmptyCell = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, EMPTY_CELL}
+        };
+        assertArrayEquals(expectedBoardWithEmptyCell, board.getBoard());
     }
 }
