@@ -9,7 +9,7 @@ mvn package site
 
 After successful build run game:
 ```
-java -jar target/puzzle-game-1.0-SNAPSHOT.jar
+java -jar target/puzzle-game-1.0.jar
 ```
 
 After successful build open unit test + code coverage reports in your browser:
