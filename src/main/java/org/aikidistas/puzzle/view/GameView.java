@@ -22,17 +22,17 @@ public class GameView {
         displayBoard(gameBoard);
     }
 
-    private void displayBoard(GameBoard gameBoard) {
-        outputHandler.displayMessage(renderGameBoard(gameBoard));
-
-    }
-
     private void displayHeader(GameBoard gameBoard) {
         if (gameBoard.isSolved()) {
             outputHandler.displayMessage(HEADER_SOLVED_BOARD);
         } else {
             outputHandler.displayMessage(HEADER);
         }
+    }
+
+    private void displayBoard(GameBoard gameBoard) {
+        outputHandler.displayMessage(renderGameBoard(gameBoard));
+
     }
 
     private String renderGameBoard(GameBoard gameBoard) {
@@ -55,6 +55,14 @@ public class GameView {
     }
 
     private String renderGameBoardCell(int cell) {
-        return (cell != EMPTY_CELL) ? String.format("%s%2s", COLUMN_SEPARATOR, cell) : COLUMN_SEPARATOR + "  ";
+        return (cell != EMPTY_CELL) ? renderFullCell(cell) : renderEmptyCell();
+    }
+
+    private String renderEmptyCell() {
+        return COLUMN_SEPARATOR + "  ";
+    }
+
+    private String renderFullCell(int cell) {
+        return String.format("%s%2s", COLUMN_SEPARATOR, cell);
     }
 }
