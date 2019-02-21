@@ -22,26 +22,12 @@ public class GameBoard {
     private GameBoard(int[][] board, Coordinate emptyCell) {
         this.board = board;
         this.emptyCell = emptyCell;
+        this.board[emptyCell.getX()][emptyCell.getY()] = EMPTY_CELL;
     }
 
-    public static GameBoard createFrom2DArray(int[][] newBoard) throws IllegalBoardWithoutEmptyCellException {
-        Coordinate newEmptyCell = findEmptyCellInBoard(newBoard);
-
-        return new GameBoard(newBoard, newEmptyCell);
+    public static GameBoard createFrom2DArrayAndEmptyCellCoordinate(int[][] newBoard, Coordinate emptyCell) {
+        return new GameBoard(newBoard, emptyCell);
     }
-
-    private static Coordinate findEmptyCellInBoard(int[][] someBoard) throws IllegalBoardWithoutEmptyCellException {
-        for (int x = 0; x < someBoard.length; x++) {
-            for (int y = 0; y < someBoard[x].length; y++) {
-                if (someBoard[x][y] == EMPTY_CELL) {
-                    return new Coordinate(x, y);
-                }
-            }
-        }
-
-        throw new IllegalBoardWithoutEmptyCellException();
-    }
-
 
     public static GameBoard createSolvedGameBoard() {
         return new GameBoard(new int[][]{
@@ -127,44 +113,5 @@ public class GameBoard {
 
     private void applyRandomMove() {
         Action.getRandomMove().applyTo(this);
-    }
-
-    public static class IllegalBoardWithoutEmptyCellException extends Exception {
-    }
-
-    private static class Coordinate {
-        private int x;
-        private int y;
-
-        public Coordinate(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public Coordinate getNeighbourUp() {
-            return new Coordinate(x - 1, y);
-        }
-
-        public Coordinate getNeighbourDown() {
-            return new Coordinate(x + 1, y);
-        }
-
-        public Coordinate getNeighbourLeft() {
-            return new Coordinate(x, y - 1);
-        }
-
-        public Coordinate getNeighbourRight() {
-            return new Coordinate(x, y + 1);
-        }
-
-
     }
 }

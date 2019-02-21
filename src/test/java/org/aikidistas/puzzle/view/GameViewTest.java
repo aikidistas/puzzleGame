@@ -1,7 +1,7 @@
 package org.aikidistas.puzzle.view;
 
+import org.aikidistas.puzzle.model.Coordinate;
 import org.aikidistas.puzzle.model.GameBoard;
-import org.aikidistas.puzzle.model.GameBoard.IllegalBoardWithoutEmptyCellException;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,14 +28,14 @@ class GameViewTest {
     }
 
     @Test
-    void renderSolvedBoard() throws IllegalBoardWithoutEmptyCellException {
+    void renderSolvedBoard() {
         // GIVEN
-        GameBoard board = GameBoard.createFrom2DArray(new int[][]{
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(new int[][]{
                 {1, 2, 3, 4},
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
                 {13, 14, 15, EMPTY_CELL}
-        });
+        }, new Coordinate(3, 3));
 
         // WHEN
         view.render(board);
@@ -57,14 +57,14 @@ class GameViewTest {
     }
 
     @Test
-    void renderRandomBoard() throws IllegalBoardWithoutEmptyCellException {
+    void renderRandomBoard() {
         // GIVEN
-        GameBoard board = GameBoard.createFrom2DArray(new int[][]{
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(new int[][]{
                 {10, 3, 5, 6},
                 {EMPTY_CELL, 4, 7, 9},
                 {1, 2, 12, 8},
                 {13, 14, 11, 15}
-        });
+        }, new Coordinate(1, 0));
 
         // WHEN
         view.render(board);

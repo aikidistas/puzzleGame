@@ -1,21 +1,15 @@
 package org.aikidistas.puzzle.model;
 
 
-import org.aikidistas.puzzle.model.GameBoard.IllegalBoardWithoutEmptyCellException;
 import org.junit.jupiter.api.Test;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("squid:S00100")
 class GameBoardTest {
     @Test
-    void createFromTwoDimentionalIntArray() throws IllegalBoardWithoutEmptyCellException {
+    void createFromTwoDimentionalIntArray() {
         // GIVEN
         int[][] expectedBoard = {
                 {1, 2, 3, 4},
@@ -25,24 +19,10 @@ class GameBoardTest {
         };
 
         // WHEN
-        GameBoard board = GameBoard.createFrom2DArray(expectedBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(expectedBoard, new Coordinate(2, 3));
 
         // THEN
         assertEquals(expectedBoard, board.getBoard());
-    }
-
-    @Test
-    void createFromTwoDimentionalIntArray_withoutEmptyCell_throwsException() {
-        // GIVEN
-        int[][] expectedBoard = {
-                {1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12},
-                {13, 14, 15, 16}
-        };
-
-        // THEN
-        assertThrows(IllegalBoardWithoutEmptyCellException.class, () -> GameBoard.createFrom2DArray(expectedBoard));
     }
 
     @Test
@@ -87,7 +67,7 @@ class GameBoardTest {
     }
 
     @Test
-    void isSolved() throws IllegalBoardWithoutEmptyCellException {
+    void isSolved() {
         // GIVEN
         int[][] solvedBoard = {
                 {1, 2, 3, 4},
@@ -95,14 +75,14 @@ class GameBoardTest {
                 {9, 10, 11, 12},
                 {13, 14, 15, EMPTY_CELL}
         };
-        GameBoard board = GameBoard.createFrom2DArray(solvedBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(solvedBoard, new Coordinate(3, 3));
 
         // THEN
         assertTrue(board.isSolved());
     }
 
     @Test
-    void moveUp() throws IllegalBoardWithoutEmptyCellException {
+    void moveUp() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -110,7 +90,7 @@ class GameBoardTest {
                 {9, 10, 11, 12},
                 {13, 14, 15, EMPTY_CELL}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(3, 3));
 
         // WHEN
         board.moveUp();
@@ -126,7 +106,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveUp_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
+    void moveUp_whenActionIsIllegal_DoNotMove() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, EMPTY_CELL},
@@ -134,7 +114,7 @@ class GameBoardTest {
                 {9, 10, 11, 8},
                 {13, 14, 15, 12}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(0, 3));
 
         // WHEN
         board.moveUp();
@@ -150,7 +130,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveDown() throws IllegalBoardWithoutEmptyCellException {
+    void moveDown() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, EMPTY_CELL},
@@ -158,7 +138,7 @@ class GameBoardTest {
                 {9, 10, 11, 8},
                 {13, 14, 15, 12}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(0, 3));
 
         // WHEN
         board.moveDown();
@@ -174,7 +154,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveDown_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
+    void moveDown_whenActionIsIllegal_DoNotMove() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -182,7 +162,7 @@ class GameBoardTest {
                 {9, 10, 11, 12},
                 {13, 14, 15, EMPTY_CELL}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(3, 3));
 
         // WHEN
         board.moveDown();
@@ -198,7 +178,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveLeft() throws IllegalBoardWithoutEmptyCellException {
+    void moveLeft() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -206,7 +186,7 @@ class GameBoardTest {
                 {9, 10, 11, 12},
                 {13, 14, 15, EMPTY_CELL}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(3, 3));
 
         // WHEN
         board.moveLeft();
@@ -222,7 +202,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveLeft_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
+    void moveLeft_whenActionIsIllegal_DoNotMove() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -230,7 +210,7 @@ class GameBoardTest {
                 {9, 10, 11, 12},
                 {EMPTY_CELL, 13, 14, 15}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(3, 0));
 
         // WHEN
         board.moveLeft();
@@ -246,7 +226,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveRight() throws IllegalBoardWithoutEmptyCellException {
+    void moveRight() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, 4},
@@ -254,7 +234,7 @@ class GameBoardTest {
                 {9, 10, 11, 12},
                 {EMPTY_CELL, 13, 14, 15}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(3, 0));
 
         // WHEN
         board.moveRight();
@@ -270,7 +250,7 @@ class GameBoardTest {
     }
 
     @Test
-    void moveRight_whenActionIsIllegal_DoNotMove() throws IllegalBoardWithoutEmptyCellException {
+    void moveRight_whenActionIsIllegal_DoNotMove() {
         // GIVEN
         int[][] originalBoard = {
                 {1, 2, 3, EMPTY_CELL},
@@ -278,7 +258,7 @@ class GameBoardTest {
                 {9, 10, 11, 8},
                 {13, 14, 15, 12}
         };
-        GameBoard board = GameBoard.createFrom2DArray(originalBoard);
+        GameBoard board = GameBoard.createFrom2DArrayAndEmptyCellCoordinate(originalBoard, new Coordinate(0, 3));
 
         // WHEN
         board.moveRight();
