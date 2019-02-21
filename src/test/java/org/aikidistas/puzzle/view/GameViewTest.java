@@ -52,8 +52,7 @@ class GameViewTest {
                 " | 13 | 14 | 15 |    | " + LINE_SEPARATOR +
                 " --------------------- " + LINE_SEPARATOR +
                 LINE_SEPARATOR;
-        Assertions.
-                assertEquals(expectedOutput, output.toString());
+        Assertions.assertEquals(expectedOutput, output.toString());
     }
 
     @Test
