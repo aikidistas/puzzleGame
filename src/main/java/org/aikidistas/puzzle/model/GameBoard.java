@@ -1,14 +1,8 @@
 package org.aikidistas.puzzle.model;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 
-
-// TODO: test getter returns a copy of internal state, not the internal state itself
-@Getter
 public class GameBoard {
-    public static final int BORDER_SIZE = 4;
     public static final int EMPTY_CELL = 0;
     private static final int NUMBER_OF_RANDOM_MOVES = 200;
     private static final int[][] solvedBoard = {
@@ -60,6 +54,11 @@ public class GameBoard {
 
     public static GameBoard createShuffledGameBoard() {
         return createSolvedGameBoard().shuffle();
+    }
+
+    public int[][] getBoard() {
+        // TODO: getter returns a copy of internal state, not the internal state itself. Write test for it
+        return this.board;
     }
 
     public void moveUp() {
@@ -133,7 +132,6 @@ public class GameBoard {
     public static class IllegalBoardWithoutEmptyCellException extends Exception {
     }
 
-    @Getter
     private static class Coordinate {
         private int x;
         private int y;
@@ -141,6 +139,14 @@ public class GameBoard {
         public Coordinate(int x, int y) {
             this.x = x;
             this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
         }
 
         public Coordinate getNeighbourUp() {
