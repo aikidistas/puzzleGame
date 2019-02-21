@@ -7,6 +7,8 @@ public class InputHandler {
     private Scanner scanner;
     private OutputHandler output;
 
+    private static final String INVALID_INPUT_MESSAGE = "Invalid option was entered.";
+
     public InputHandler(Scanner input, OutputHandler output) {
         this.scanner = input;
         this.output = output;
@@ -18,6 +20,7 @@ public class InputHandler {
         String input = getInput(displayedMessage);
 
         while (!availableAnswers.contains(input)) {
+            showValidationError();
             input = getInput(displayedMessage);
         }
 
@@ -30,6 +33,10 @@ public class InputHandler {
 
     private String answersToText(List<String> availableAnswers) {
         return String.join(", ", availableAnswers);
+    }
+
+    private void showValidationError() {
+        output.displayMessage(INVALID_INPUT_MESSAGE);
     }
 
     private String getInput(String message) {

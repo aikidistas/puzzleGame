@@ -1,11 +1,11 @@
 package org.aikidistas.puzzle.userinteraction;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,55 +18,103 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class InputHandlerTest {
 
 
-    @Test
-    void getUserChoice_acceptsEmptyString_asNewLineAnswer() {
-        // GIVEN
-        StringWriter output = new StringWriter();
-        String input = LINE_SEPARATOR;
-        InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
-        String questionText = "Please click enter keyboard button...";
-        String expectedAnswer = "";
-        List<String> availableAnswers = Collections.singletonList(expectedAnswer);
+    private String question;
+    private List<String> availableAnswers;
+    private String selectedAnswer;
+    private String userInput;
+    private InputHandler inputHandler;
+    private StringWriter output;
 
-        // WHEN
-        String result = inputHandler.getUserChoice(questionText, availableAnswers);
+    @BeforeEach
+    void setUp() {
+        output = new StringWriter();
+        String defaultAvailableAnswer = "DEFAULT_AVAILABLE_ANSWER";
 
-        // THEN
-        assertEquals(expectedAnswer, result);
+        givenQuestion("Default question");
+        givenAvailableAnswers(defaultAvailableAnswer);
+        givenUserWillAnswer(defaultAvailableAnswer);
     }
 
     @Test
-    void showsMessage() {
-        // GIVEN
-        StringWriter output = new StringWriter();
-        String input = LINE_SEPARATOR;
-        InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
-        String questionText = "Please click enter keyboard button...";
-        String expectedAnswer = "";
-        List<String> availableAnswers = Collections.singletonList(expectedAnswer);
+    void getUserChoice_givenQuestionAndAvailableAnswers_willReturnOneUsersChosenAnswer() {
+        String chosenAnswer = "CHOSEN_ANSWER";
 
-        // WHEN
-        inputHandler.getUserChoice(questionText, availableAnswers);
+        givenQuestion("Some question to the user");
+        givenAvailableAnswers(chosenAnswer, "some other answer");
+        givenUserWillAnswer(chosenAnswer);
 
-        // THEN
-        assertThat(output.toString(), containsString(questionText));
+        whenGetUserChoiceIsInvoked();
+
+        thenSelectedAnswerEquals(chosenAnswer);
+    }
+
+
+    @Test
+    void getUserChoice_showsQuestionToTheUser() {
+        String question = "Some question to the user";
+        givenQuestion(question);
+
+        whenGetUserChoiceIsInvoked();
+
+        thenOutputContains(question);
     }
 
     @Test
-    void showsAvailableAnswers() {
-        // GIVEN
-        StringWriter output = new StringWriter();
-        String input = "WRONG_ANSWER" + LINE_SEPARATOR
-                + "B" + LINE_SEPARATOR;
-        InputHandler inputHandler = new InputHandler(new Scanner(input), new OutputHandler(new PrintWriter(output)));
-        String questionText = "This is a question...";
-        List<String> availableAnswers = Arrays.asList("B", "C");
+    void getUserChoice_showsAvailableAnswersToTheUser() {
+        givenAvailableAnswers("FIRST_ANSWER", "SECOND_ANSWER");
+        givenUserWillAnswer("FIRST_ANSWER");
 
-        // WHEN
-        inputHandler.getUserChoice(questionText, availableAnswers);
+        whenGetUserChoiceIsInvoked();
 
-        // THEN
-        String expectedAnswersText = "(B, C)";
-        assertThat(output.toString(), containsString(expectedAnswersText));
+        thenOutputContains("(FIRST_ANSWER, SECOND_ANSWER)");
+    }
+
+    @Test
+    void getUserChoice_afterInvalidUserInput_showsErrorMessageToTheUser() {
+        String correctAnswer = "CORRECT_ANSWER";
+
+        givenAvailableAnswers(correctAnswer, "SOME_OTHER_CORRECT_ANSWER");
+        givenUserWillAnswer("WRONG_ANSWER", correctAnswer);
+
+        whenGetUserChoiceIsInvoked();
+
+        thenOutputContains("Invalid option was entered.");
+    }
+
+    @Test
+    void getUserChoice_willAskUserAgainAndAgain_untilCorrectAnswerIsChosenByUser() {
+        String correctAnswer = "CORRECT_ANSWER";
+
+        givenAvailableAnswers(correctAnswer);
+        givenUserWillAnswer("WRONG_ANSWER", "OTHER_WRONG_ANSWER", correctAnswer);
+
+        whenGetUserChoiceIsInvoked();
+
+        thenSelectedAnswerEquals(correctAnswer);
+    }
+
+    private void givenQuestion(String question) {
+        this.question = question;
+    }
+
+    private void givenAvailableAnswers(String... answers) {
+        this.availableAnswers = Arrays.asList(answers);
+    }
+
+    private void givenUserWillAnswer(String... answer) {
+        userInput = String.join(LINE_SEPARATOR, answer) + LINE_SEPARATOR;
+    }
+
+    private void whenGetUserChoiceIsInvoked() {
+        inputHandler = new InputHandler(new Scanner(userInput), new OutputHandler(new PrintWriter(output)));
+        selectedAnswer = inputHandler.getUserChoice(question, availableAnswers);
+    }
+
+    private void thenOutputContains(String expectedErrorMessage) {
+        assertThat(output.toString(), containsString(expectedErrorMessage));
+    }
+
+    private void thenSelectedAnswerEquals(String availableAnswer) {
+        assertEquals(availableAnswer, selectedAnswer);
     }
 }
