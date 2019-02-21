@@ -11,21 +11,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GameControllerTest {
     @InjectMocks
     private GameController controller;
-    //
+
     @Mock
     private GameBoard gameBoard;
-    //
+
     @Mock
     private GameView gameView;
-    //
+
     @Mock
     private InputHandler inputHandler;
 
