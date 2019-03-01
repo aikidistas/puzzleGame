@@ -1,14 +1,14 @@
 package org.aikidistas.puzzle.model;
 
-import org.aikidistas.puzzle.model.service.GameBoardService;
+import org.aikidistas.puzzle.model.service.GameBoardModifierService;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
 
 public class ShuffledGameBoardFactory {
-    private GameBoardService gameBoardService;
+    private GameBoardModifierService gameBoardModifierService;
 
-    public ShuffledGameBoardFactory(GameBoardService gameBoardService) {
-        this.gameBoardService = gameBoardService;
+    public ShuffledGameBoardFactory(GameBoardModifierService gameBoardModifierService) {
+        this.gameBoardModifierService = gameBoardModifierService;
     }
 
     private GameBoard createSolvedGameBoard() {
@@ -22,6 +22,6 @@ public class ShuffledGameBoardFactory {
 
     public GameBoard createShuffledGameBoard() {
         GameBoard solvedGameBoard = createSolvedGameBoard();
-        return gameBoardService.shuffle(solvedGameBoard);
+        return gameBoardModifierService.shuffle(solvedGameBoard);
     }
 }
