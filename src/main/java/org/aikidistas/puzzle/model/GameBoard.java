@@ -15,32 +15,14 @@ public class GameBoard {
     private final int[][] board;
     private Coordinate emptyCell = new Coordinate(3, 3);
 
-    private GameBoard(int[][] board) {
+    public GameBoard(int[][] board) {
         this.board = board;
     }
 
-    private GameBoard(int[][] board, Coordinate emptyCell) {
+    public GameBoard(int[][] board, Coordinate emptyCell) {
         this.board = board;
         this.emptyCell = emptyCell;
         this.board[emptyCell.getX()][emptyCell.getY()] = EMPTY_CELL;
-    }
-
-    public static GameBoard createFrom2DArrayAndEmptyCellCoordinate(int[][] newBoard, Coordinate emptyCell) {
-        return new GameBoard(newBoard, emptyCell);
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public static GameBoard createSolvedGameBoard() {
-        return new GameBoard(new int[][]{
-                {1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12},
-                {13, 14, 15, EMPTY_CELL}
-        });
-    }
-
-    public static GameBoard createShuffledGameBoard() {
-        return createSolvedGameBoard().shuffle();
     }
 
     private static int[][] copyOf(int[][] sourceBoard) {
@@ -114,7 +96,7 @@ public class GameBoard {
         return Arrays.deepEquals(board, solvedBoard);
     }
 
-    private GameBoard shuffle() {
+    public GameBoard shuffle() {
         for (int i = 0; i < NUMBER_OF_RANDOM_MOVES; i++) {
             applyRandomMove();
         }
