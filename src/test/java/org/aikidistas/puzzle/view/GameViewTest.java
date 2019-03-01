@@ -1,8 +1,8 @@
 package org.aikidistas.puzzle.view;
 
 import org.aikidistas.puzzle.model.Coordinate;
+import org.aikidistas.puzzle.model.CustomGameBoardFactory;
 import org.aikidistas.puzzle.model.GameBoard;
-import org.aikidistas.puzzle.model.factory.GameBoardFactory;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +31,7 @@ class GameViewTest {
     @Test
     void renderSolvedBoard() {
         // GIVEN
-        GameBoard board = GameBoardFactory.createFrom2DArrayAndEmptyCellCoordinate(new int[][]{
+        GameBoard board = new CustomGameBoardFactory().createFrom2DArrayAndEmptyCellCoordinate(new int[][]{
                 {1, 2, 3, 4},
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
@@ -59,7 +59,7 @@ class GameViewTest {
     @Test
     void renderRandomBoard() {
         // GIVEN
-        GameBoard board = GameBoardFactory.createFrom2DArrayAndEmptyCellCoordinate(new int[][]{
+        GameBoard board = new CustomGameBoardFactory().createFrom2DArrayAndEmptyCellCoordinate(new int[][]{
                 {10, 3, 5, 6},
                 {EMPTY_CELL, 4, 7, 9},
                 {1, 2, 12, 8},

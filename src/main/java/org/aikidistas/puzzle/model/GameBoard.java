@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class GameBoard {
     public static final int EMPTY_CELL = 0;
-    private static final int NUMBER_OF_RANDOM_MOVES = 200;
+
     private static final int[][] solvedBoard = {
             {1, 2, 3, 4},
             {5, 6, 7, 8},
@@ -15,11 +15,11 @@ public class GameBoard {
     private final int[][] board;
     private Coordinate emptyCell = new Coordinate(3, 3);
 
-    public GameBoard(int[][] board) {
+    GameBoard(int[][] board) {
         this.board = board;
     }
 
-    public GameBoard(int[][] board, Coordinate emptyCell) {
+    GameBoard(int[][] board, Coordinate emptyCell) {
         this.board = board;
         this.emptyCell = emptyCell;
         this.board[emptyCell.getX()][emptyCell.getY()] = EMPTY_CELL;
@@ -96,14 +96,4 @@ public class GameBoard {
         return Arrays.deepEquals(board, solvedBoard);
     }
 
-    public GameBoard shuffle() {
-        for (int i = 0; i < NUMBER_OF_RANDOM_MOVES; i++) {
-            applyRandomMove();
-        }
-        return this;
-    }
-
-    private void applyRandomMove() {
-        Action.getRandomMove().applyTo(this);
-    }
 }
