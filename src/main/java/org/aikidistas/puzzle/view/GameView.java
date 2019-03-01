@@ -1,20 +1,23 @@
 package org.aikidistas.puzzle.view;
 
 import org.aikidistas.puzzle.model.GameBoard;
+import org.aikidistas.puzzle.model.service.GameBoardValidatorService;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
 import static org.aikidistas.puzzle.userinteraction.OutputHandler.LINE_SEPARATOR;
 
 public class GameView {
-    public static final String HEADER = "15 Puzzle game. Move around empty cell to solve it.";
-    public static final String HEADER_SOLVED_BOARD = "You are the WINNER!!!!! Here is your solved board:";
-    public static final String ROW_SEPARATOR = " --------------------- " + LINE_SEPARATOR;
-    public static final String COLUMN_SEPARATOR = " | ";
+    private static final String HEADER = "15 Puzzle game. Move around empty cell to solve it.";
+    private static final String HEADER_SOLVED_BOARD = "You are the WINNER!!!!! Here is your solved board:";
+    private static final String ROW_SEPARATOR = " --------------------- " + LINE_SEPARATOR;
+    private static final String COLUMN_SEPARATOR = " | ";
     private OutputHandler outputHandler;
+    private GameBoardValidatorService gameBoardValidatorService;
 
-    public GameView(OutputHandler outputHandler) {
+    public GameView(OutputHandler outputHandler, GameBoardValidatorService gameBoardValidatorService) {
         this.outputHandler = outputHandler;
+        this.gameBoardValidatorService = gameBoardValidatorService;
     }
 
     public void render(GameBoard gameBoard) {
@@ -23,7 +26,7 @@ public class GameView {
     }
 
     private void displayHeader(GameBoard gameBoard) {
-        if (gameBoard.isSolved()) {
+        if (gameBoardValidatorService.isSolved(gameBoard)) {
             outputHandler.displayMessage(HEADER_SOLVED_BOARD);
         } else {
             outputHandler.displayMessage(HEADER);
@@ -50,7 +53,9 @@ public class GameView {
         for (int cell : row) {
             renderedRow.append(renderGameBoardCell(cell));
         }
-        renderedRow.append(COLUMN_SEPARATOR + LINE_SEPARATOR);
+        renderedRow
+                .append(COLUMN_SEPARATOR)
+                .append(LINE_SEPARATOR);
         return renderedRow.toString();
     }
 

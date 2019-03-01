@@ -3,6 +3,7 @@ package org.aikidistas.puzzle;
 import org.aikidistas.puzzle.controller.GameController;
 import org.aikidistas.puzzle.model.ShuffledGameBoardFactory;
 import org.aikidistas.puzzle.model.service.GameBoardService;
+import org.aikidistas.puzzle.model.service.GameBoardValidatorService;
 import org.aikidistas.puzzle.userinteraction.InputHandler;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 import org.aikidistas.puzzle.view.GameView;
@@ -22,7 +23,7 @@ public class ApplicationRunner {
         OutputHandler outputHandler = new OutputHandler(new PrintWriter(System.out, true));
         return new GameController(
                 new ShuffledGameBoardFactory(new GameBoardService()).createShuffledGameBoard(),
-                new GameView(outputHandler),
+                new GameView(outputHandler, new GameBoardValidatorService()),
                 new InputHandler(new Scanner(System.in), outputHandler)
         );
     }

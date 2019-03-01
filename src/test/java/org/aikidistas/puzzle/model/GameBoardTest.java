@@ -2,6 +2,7 @@ package org.aikidistas.puzzle.model;
 
 
 import org.aikidistas.puzzle.model.service.GameBoardService;
+import org.aikidistas.puzzle.model.service.GameBoardValidatorService;
 import org.junit.jupiter.api.Test;
 
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
@@ -55,7 +56,7 @@ class GameBoardTest {
         GameBoard board = new ShuffledGameBoardFactory(new GameBoardService()).createShuffledGameBoard();
 
         // THEN
-        assertFalse(board.isSolved());
+        assertFalse(new GameBoardValidatorService().isSolved(board));
     }
 
     @Test
@@ -72,7 +73,7 @@ class GameBoardTest {
         );
 
         // THEN
-        assertTrue(board.isSolved());
+        assertTrue(new GameBoardValidatorService().isSolved(board));
     }
 
     @Test

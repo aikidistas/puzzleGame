@@ -5,12 +5,6 @@ import java.util.Arrays;
 public class GameBoard {
     public static final int EMPTY_CELL = 0;
 
-    private static final int[][] solvedBoard = {
-            {1, 2, 3, 4},
-            {5, 6, 7, 8},
-            {9, 10, 11, 12},
-            {13, 14, 15, EMPTY_CELL}
-    };
 
     private final int[][] board;
     private Coordinate emptyCell = new Coordinate(3, 3);
@@ -92,8 +86,5 @@ public class GameBoard {
         board[x2][y2] = valueBackup;
     }
 
-    public boolean isSolved() {
-        return Arrays.deepEquals(board, solvedBoard);
-    }
 
 }

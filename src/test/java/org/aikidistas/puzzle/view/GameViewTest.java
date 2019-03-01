@@ -3,6 +3,7 @@ package org.aikidistas.puzzle.view;
 import org.aikidistas.puzzle.model.Coordinate;
 import org.aikidistas.puzzle.model.CustomGameBoardFactory;
 import org.aikidistas.puzzle.model.GameBoard;
+import org.aikidistas.puzzle.model.service.GameBoardValidatorService;
 import org.aikidistas.puzzle.userinteraction.OutputHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ class GameViewTest {
     void setUp() {
         output = new StringWriter();
         OutputHandler outputHandler = new OutputHandler(new PrintWriter(output));
-        view = new GameView(outputHandler);
+        view = new GameView(outputHandler, new GameBoardValidatorService());
     }
 
     @Test
