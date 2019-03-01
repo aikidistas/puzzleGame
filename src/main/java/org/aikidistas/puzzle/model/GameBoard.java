@@ -29,6 +29,7 @@ public class GameBoard {
         return new GameBoard(newBoard, emptyCell);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static GameBoard createSolvedGameBoard() {
         return new GameBoard(new int[][]{
                 {1, 2, 3, 4},
@@ -59,6 +60,7 @@ public class GameBoard {
         move(emptyCell.getNeighbourUp());
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void moveDown() {
         move(emptyCell.getNeighbourDown());
     }
@@ -67,6 +69,7 @@ public class GameBoard {
         move(emptyCell.getNeighbourLeft());
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void moveRight() {
         move(emptyCell.getNeighbourRight());
     }
@@ -76,7 +79,6 @@ public class GameBoard {
             return;
         }
 
-        emptyCell.getNeighbourUp();
         switchCellsContent(emptyCell, targetCell);
         emptyCell = targetCell;
     }

@@ -110,8 +110,8 @@ class InputHandlerTest {
         selectedAnswer = inputHandler.getUserChoice(question, availableAnswers);
     }
 
-    private void thenOutputContains(String expectedErrorMessage) {
-        assertThat(output.toString(), containsString(expectedErrorMessage));
+    private void thenOutputContains(String text) {
+        assertThat(output.toString(), containsString(text));
     }
 
     private void thenSelectedAnswerEquals(String availableAnswer) {
