@@ -1,9 +1,9 @@
 package org.aikidistas.puzzle.model.service;
 
 import org.aikidistas.puzzle.model.Action;
-import org.aikidistas.puzzle.model.CellOutOfBoardException;
 import org.aikidistas.puzzle.model.Coordinate;
 import org.aikidistas.puzzle.model.GameBoard;
+import org.aikidistas.puzzle.model.exception.CellOutOfBoardException;
 
 public class GameBoardModifierService {
     private static final int NUMBER_OF_RANDOM_MOVES = 200;

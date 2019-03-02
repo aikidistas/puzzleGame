@@ -1,5 +1,7 @@
 package org.aikidistas.puzzle.model;
 
+import org.aikidistas.puzzle.model.exception.CellOutOfBoardException;
+
 import java.util.Arrays;
 
 public class GameBoard {

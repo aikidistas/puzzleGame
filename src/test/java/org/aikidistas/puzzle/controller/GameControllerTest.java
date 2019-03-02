@@ -1,8 +1,8 @@
 package org.aikidistas.puzzle.controller;
 
-import org.aikidistas.puzzle.model.CellOutOfBoardException;
 import org.aikidistas.puzzle.model.Coordinate;
 import org.aikidistas.puzzle.model.GameBoard;
+import org.aikidistas.puzzle.model.exception.CellOutOfBoardException;
 import org.aikidistas.puzzle.userinteraction.InputHandler;
 import org.aikidistas.puzzle.view.GameView;
 import org.junit.jupiter.api.Test;
