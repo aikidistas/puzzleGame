@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.aikidistas.puzzle.model.GameBoard.EMPTY_CELL;
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO: move some tests to other separate test classes
 @SuppressWarnings("squid:S00100")
 class GameBoardTest {
     @Test
@@ -53,10 +54,13 @@ class GameBoardTest {
     @Test
     void createShuffledGameBoard() {
         // WHEN
-        GameBoard board = new ShuffledGameBoardFactory(new GameBoardModifierService()).createShuffledGameBoard();
+        GameBoard board = new ShuffledGameBoardFactory(new GameBoardModifierService(), new GameBoardValidatorService())
+                .createShuffledGameBoard();
 
         // THEN
-        assertFalse(new GameBoardValidatorService().isSolved(board));
+        for (int i = 0; i < 1; i++) {
+            assertFalse(new GameBoardValidatorService().isSolved(board));
+        }
     }
 
     @Test
@@ -90,7 +94,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveUp();
+        new GameBoardModifierService().moveUp(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -116,7 +120,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveUp();
+        new GameBoardModifierService().moveUp(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -142,7 +146,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveDown();
+        new GameBoardModifierService().moveDown(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -168,7 +172,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveDown();
+        new GameBoardModifierService().moveDown(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -194,7 +198,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveLeft();
+        new GameBoardModifierService().moveLeft(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -220,7 +224,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveLeft();
+        new GameBoardModifierService().moveLeft(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -246,7 +250,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveRight();
+        new GameBoardModifierService().moveRight(board);
 
         // THEN
         int[][] expectedBoard = {
@@ -272,7 +276,7 @@ class GameBoardTest {
         );
 
         // WHEN
-        board.moveRight();
+        new GameBoardModifierService().moveRight(board);
 
         // THEN
         int[][] expectedBoard = {

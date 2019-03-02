@@ -32,31 +32,28 @@ public class GameBoard {
         return copyOf(board);
     }
 
-    public void moveUp() {
-        move(emptyCell.getNeighbourUp());
+    public Coordinate getEmptyCell() {
+        return new Coordinate(this.emptyCell.getX(), this.emptyCell.getY());
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public void moveDown() {
-        move(emptyCell.getNeighbourDown());
+    public void setEmptyCell(Coordinate cell) {
+        this.emptyCell = cell;
     }
 
-    public void moveLeft() {
-        move(emptyCell.getNeighbourLeft());
-    }
 
-    @SuppressWarnings("WeakerAccess")
-    public void moveRight() {
-        move(emptyCell.getNeighbourRight());
-    }
-
-    private void move(Coordinate targetCell) {
-        if (isNotValidCoordinate(targetCell)) {
-            return;
+    public void switchCellsContent(Coordinate coordinate, Coordinate coordinate2) throws CellOutOfBoardException {
+        if (isNotValidCoordinate(coordinate) || isNotValidCoordinate(coordinate2)) {
+            // TODO: throw exception
+            throw new CellOutOfBoardException();
         }
 
-        switchCellsContent(emptyCell, targetCell);
-        emptyCell = targetCell;
+        int x1 = coordinate.getX();
+        int y1 = coordinate.getY();
+        int x2 = coordinate2.getX();
+        int y2 = coordinate2.getY();
+        int valueBackup = board[x1][y1];
+        board[x1][y1] = board[x2][y2];
+        board[x2][y2] = valueBackup;
     }
 
     private boolean isNotValidCoordinate(Coordinate targetCell) {
@@ -75,16 +72,4 @@ public class GameBoard {
     private boolean isNotValidColumn(Coordinate targetCell) {
         return (targetCell.getY() < 0) || (targetCell.getY() >= board[targetCell.getX()].length);
     }
-
-    private void switchCellsContent(Coordinate coordinate, Coordinate coordinate2) {
-        int x1 = coordinate.getX();
-        int y1 = coordinate.getY();
-        int x2 = coordinate2.getX();
-        int y2 = coordinate2.getY();
-        int valueBackup = board[x1][y1];
-        board[x1][y1] = board[x2][y2];
-        board[x2][y2] = valueBackup;
-    }
-
-
 }

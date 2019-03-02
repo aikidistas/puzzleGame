@@ -1,21 +1,15 @@
 package org.aikidistas.puzzle.model;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Coordinate {
     private int x;
     private int y;
-
-    public Coordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 
     public Coordinate getNeighbourUp() {
         return new Coordinate(x - 1, y);

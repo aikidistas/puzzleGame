@@ -1,5 +1,7 @@
 package org.aikidistas.puzzle.model;
 
+import org.aikidistas.puzzle.model.service.GameBoardModifierService;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -8,25 +10,25 @@ import java.util.stream.Collectors;
 public enum Action {
     UP {
         public GameBoard applyTo(GameBoard gameBoard) {
-            gameBoard.moveUp();
+            gameBoardModifierService.moveUp(gameBoard);
             return gameBoard;
         }
     },
     DOWN {
         public GameBoard applyTo(GameBoard gameBoard) {
-            gameBoard.moveDown();
+            gameBoardModifierService.moveDown(gameBoard);
             return gameBoard;
         }
     },
     LEFT {
         public GameBoard applyTo(GameBoard gameBoard) {
-            gameBoard.moveLeft();
+            gameBoardModifierService.moveLeft(gameBoard);
             return gameBoard;
         }
     },
     RIGHT {
         public GameBoard applyTo(GameBoard gameBoard) {
-            gameBoard.moveRight();
+            gameBoardModifierService.moveRight(gameBoard);
             return gameBoard;
         }
     },
@@ -35,6 +37,8 @@ public enum Action {
             return gameBoard;
         }
     };
+
+    private static GameBoardModifierService gameBoardModifierService = new GameBoardModifierService();
 
     public static List<String> getAvailableActionsAsText() {
         return Arrays.stream(Action.values())

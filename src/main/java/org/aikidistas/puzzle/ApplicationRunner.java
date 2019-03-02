@@ -22,7 +22,7 @@ public class ApplicationRunner {
     private static GameController initializeGameController() {
         OutputHandler outputHandler = new OutputHandler(new PrintWriter(System.out, true));
         return new GameController(
-                new ShuffledGameBoardFactory(new GameBoardModifierService()).createShuffledGameBoard(),
+                new ShuffledGameBoardFactory(new GameBoardModifierService(), new GameBoardValidatorService()).createShuffledGameBoard(),
                 new GameView(outputHandler, new GameBoardValidatorService()),
                 new InputHandler(new Scanner(System.in), outputHandler)
         );
